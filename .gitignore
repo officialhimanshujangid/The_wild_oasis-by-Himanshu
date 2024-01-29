@@ -11,10 +11,7 @@ node_modules
 dist
 dist-ssr
 *.local
-data-bookings.js
-data-cabins.js
-data-guests.js
-Uploader.jsx
+
 img
 cabinRow V1.jsx
 cabinTable V1.jsx
