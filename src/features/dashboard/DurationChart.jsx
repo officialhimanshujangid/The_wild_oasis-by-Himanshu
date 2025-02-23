@@ -1,5 +1,3 @@
-/* eslint-disable react/prop-types */
-/* eslint-disable no-unused-vars */
 import styled from "styled-components";
 import Heading from "../../ui/Heading";
 import {
@@ -144,12 +142,13 @@ function prepareData(startData, stays) {
 }
 
 function DurationChart({ confirmedStays }) {
-  const { isDark } = useDarkMode();
-  const startData = isDark ? startDataDark : startDataLight;
+  const { isDarkMode } = useDarkMode();
+  const startData = isDarkMode ? startDataDark : startDataLight;
   const data = prepareData(startData, confirmedStays);
+
   return (
     <ChartBox>
-      <Heading as="h2">Stay Duration Summary</Heading>
+      <Heading as="h2">Stay duration summary</Heading>
       <ResponsiveContainer width="100%" height={240}>
         <PieChart>
           <Pie

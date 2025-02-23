@@ -1,8 +1,6 @@
-/* eslint-disable react/prop-types */
-/* eslint-disable no-unused-vars */
 import { useSearchParams } from "react-router-dom";
 import styled, { css } from "styled-components";
-import { useDarkMode } from "../context/DarkModeContext";
+
 const StyledFilter = styled.div`
   border: 1px solid var(--color-grey-100);
   background-color: var(--color-grey-0);
@@ -20,8 +18,8 @@ const FilterButton = styled.button`
   ${(props) =>
     props.active &&
     css`
-      background-color: var(--color-hoverb-100);
-      color: white;
+      background-color: var(--color-brand-600);
+      color: var(--color-brand-50);
     `}
 
   border-radius: var(--border-radius-sm);
@@ -36,19 +34,21 @@ const FilterButton = styled.button`
     color: var(--color-brand-50);
   }
 `;
+
 function Filter({ filterField, options }) {
-  const { isDarkMode } = useDarkMode();
-  console.log(isDarkMode);
   const [searchParams, setSearchParams] = useSearchParams();
-  const currentFilter = searchParams.get(filterField || options.at(0).value);
+  const currentFilter = searchParams?.get(filterField) || options.at(0).value;
+
   function handleClick(value) {
-    searchParams.set(filterField, value);
+    searchParams?.set(filterField, value);
     if (searchParams.get("page")) searchParams.set("page", 1);
+
     setSearchParams(searchParams);
   }
+
   return (
     <StyledFilter>
-      {options.map((option) => (
+      {options?.map((option) => (
         <FilterButton
           key={option.value}
           onClick={() => handleClick(option.value)}

@@ -1,5 +1,3 @@
-/* eslint-disable react/prop-types */
-/* eslint-disable no-unused-vars */
 import { createPortal } from "react-dom";
 import { HiXMark } from "react-icons/hi2";
 import styled from "styled-components";
@@ -60,6 +58,7 @@ function Modal({ children, onClose }) {
         <Button onClick={onClose}>
           <HiXMark />
         </Button>
+
         <div>{children}</div>
       </StyledModal>
     </Overlay>,

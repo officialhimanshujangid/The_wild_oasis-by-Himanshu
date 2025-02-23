@@ -9,8 +9,10 @@ const StyledHeaderMenu = styled.ul`
   display: flex;
   gap: 0.4rem;
 `;
+
 function HeaderMenu() {
   const navigate = useNavigate();
+
   return (
     <StyledHeaderMenu>
       <li>

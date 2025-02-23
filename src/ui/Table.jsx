@@ -1,6 +1,3 @@
-/* eslint-disable react/prop-types */
-/* eslint-disable no-unused-vars */
-/* eslint-disable react-refresh/only-export-components */
 import { createContext, useContext } from "react";
 import styled from "styled-components";
 
@@ -38,9 +35,6 @@ const StyledRow = styled(CommonRow)`
   &:not(:last-child) {
     border-bottom: 1px solid var(--color-grey-100);
   }
-  &:hover {
-    background-color: var(--color-grey-300);
-  }
 `;
 
 const StyledBody = styled.section`
@@ -65,7 +59,9 @@ const Empty = styled.p`
   text-align: center;
   margin: 2.4rem;
 `;
+
 const TableContext = createContext();
+
 function Table({ columns, children }) {
   return (
     <TableContext.Provider value={{ columns }}>
@@ -73,10 +69,11 @@ function Table({ columns, children }) {
     </TableContext.Provider>
   );
 }
+
 function Header({ children }) {
   const { columns } = useContext(TableContext);
   return (
-    <StyledHeader role="table" columns={columns}>
+    <StyledHeader role="row" columns={columns} as="header">
       {children}
     </StyledHeader>
   );
@@ -84,19 +81,21 @@ function Header({ children }) {
 function Row({ children }) {
   const { columns } = useContext(TableContext);
   return (
-    <StyledRow role="table" columns={columns}>
+    <StyledRow role="row" columns={columns}>
       {children}
     </StyledRow>
   );
 }
+
 function Body({ data, render }) {
-  if (!data.length)
-    return <Empty resource="data"> No data available at this moment</Empty>;
+  if (!data.length) return <Empty>No data to show at the moment</Empty>;
+
   return <StyledBody>{data.map(render)}</StyledBody>;
 }
 
 Table.Header = Header;
-Table.Row = Row;
 Table.Body = Body;
+Table.Row = Row;
 Table.Footer = Footer;
+
 export default Table;

@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { useState } from "react";
 
 import Button from "../../ui/Button";
@@ -18,10 +17,12 @@ function UpdateUserDataForm() {
       user_metadata: { fullName: currentFullName },
     },
   } = useUser();
+
   const { updateUser, isUpdating } = useUpdateUser();
+
   const [fullName, setFullName] = useState(currentFullName);
   const [avatar, setAvatar] = useState(null);
-  console.log(isUpdating);
+
   function handleSubmit(e) {
     e.preventDefault();
     if (!fullName) return;
@@ -35,6 +36,7 @@ function UpdateUserDataForm() {
       }
     );
   }
+
   function handleCancel() {
     setFullName(currentFullName);
     setAvatar(null);
@@ -45,28 +47,31 @@ function UpdateUserDataForm() {
       <FormRow label="Email address">
         <Input value={email} disabled />
       </FormRow>
+
       <FormRow label="Full name">
         <Input
           type="text"
           value={fullName}
-          disabled={isUpdating}
           onChange={(e) => setFullName(e.target.value)}
           id="fullName"
+          disabled={isUpdating}
         />
       </FormRow>
+
       <FormRow label="Avatar image">
         <FileInput
           id="avatar"
           accept="image/*"
-          disabled={isUpdating}
           onChange={(e) => setAvatar(e.target.files[0])}
+          disabled={isUpdating}
         />
       </FormRow>
+
       <FormRow>
         <Button
-          disabled={isUpdating}
           type="reset"
-          variations="secondary"
+          variation="secondary"
+          disabled={isUpdating}
           onClick={handleCancel}
         >
           Cancel

@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import styled from "styled-components";
 import { useUser } from "./useUser";
 
@@ -29,11 +28,8 @@ function UserAvatar() {
   return (
     <StyledUserAvatar>
       <Avatar
-        src={
-          avatar ||
-          "https://w7.pngwing.com/pngs/81/570/png-transparent-profile-logo-computer-icons-user-user-blue-heroes-logo-thumbnail.png"
-        }
-        alt="avatar"
+        src={avatar || "default-user.jpg"}
+        alt={`Avatar of ${fullName}`}
       />
       <span>{fullName}</span>
     </StyledUserAvatar>

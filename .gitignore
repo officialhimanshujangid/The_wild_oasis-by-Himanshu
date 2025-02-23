@@ -12,12 +12,6 @@ dist
 dist-ssr
 *.local
 
-img
-cabinRow V1.jsx
-cabinTable V1.jsx
-cabinTable V2.jsx
-index.css
-
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

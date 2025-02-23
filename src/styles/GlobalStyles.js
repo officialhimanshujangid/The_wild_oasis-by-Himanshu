@@ -26,7 +26,6 @@ const GlobalStyles = createGlobalStyle`
   --color-silver-700: #374151;
   --color-indigo-100: #e0e7ff;
   --color-indigo-700: #4338ca;
-  --color-hoverb-100:#15803d;
 
   --color-red-100: #fee2e2;
   --color-red-700: #b91c1c;
@@ -66,7 +65,6 @@ const GlobalStyles = createGlobalStyle`
 --color-silver-700: #f3f4f6;
 --color-indigo-100: #3730a3;
 --color-indigo-700: #e0e7ff;
---color-hoverb-100:#854d0e;
 
 --color-red-100: #fee2e2;
 --color-red-700: #b91c1c;

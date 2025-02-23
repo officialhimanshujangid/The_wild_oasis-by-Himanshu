@@ -1,13 +1,13 @@
-/* eslint-disable no-unused-vars */
 import styled from "styled-components";
-import { useRecentBookings } from "./useRecentBookigs";
-import Spinner from "../../ui/Spinner";
 import { useRecentStays } from "./useRecentStays";
+import { useRecentBookings } from "./useRecentBookings";
+import Spinner from "../../ui/Spinner";
 import Stats from "./Stats";
-import { useCabins } from "../cabins/useCabin";
+import { useCabins } from "../cabins/useCabins";
 import SalesChart from "./SalesChart";
 import DurationChart from "./DurationChart";
 import TodayActivity from "../check-in-out/TodayActivity";
+
 const StyledDashboardLayout = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
@@ -16,16 +16,12 @@ const StyledDashboardLayout = styled.div`
 `;
 
 function DashboardLayout() {
-  const { bookings, isLoading } = useRecentBookings();
-  const {
-    stays,
-    confirmedStays,
-    isLoading: isLoading2,
-    numDays,
-  } = useRecentStays();
-  const { cabins } = useCabins();
-  if (isLoading || isLoading2) return <Spinner />;
-  console.log(bookings, stays, confirmedStays);
+  const { bookings, isLoading: isLoading1 } = useRecentBookings();
+  const { confirmedStays, isLoading: isLoading2, numDays } = useRecentStays();
+  const { cabins, isLoading: isLoading3 } = useCabins();
+
+  if (isLoading1 || isLoading2 || isLoading3) return <Spinner />;
+
   return (
     <StyledDashboardLayout>
       <Stats

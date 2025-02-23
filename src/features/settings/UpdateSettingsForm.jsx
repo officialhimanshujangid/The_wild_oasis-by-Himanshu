@@ -1,48 +1,53 @@
-/* eslint-disable no-unused-vars */
 import Form from "../../ui/Form";
 import FormRow from "../../ui/FormRow";
 import Input from "../../ui/Input";
 import Spinner from "../../ui/Spinner";
-import { useEditSetting } from "./useEditSetting";
 import { useSettings } from "./useSettings";
+import { useUpdateSetting } from "./useUpdateSetting";
 
 function UpdateSettingsForm() {
   const {
     isLoading,
     settings: {
-      minBookinglength,
-      maxBookingLengths,
+      minBookingLength,
+      maxBookingLength,
       maxGuestsPerBooking,
       breakfastPrice,
     } = {},
   } = useSettings();
-  const { isUpdating, updateSetting } = useEditSetting();
+  const { isUpdating, updateSetting } = useUpdateSetting();
+
+  if (isLoading) return <Spinner />;
+
   function handleUpdate(e, field) {
     const { value } = e.target;
+
     if (!value) return;
     updateSetting({ [field]: value });
   }
-  if (isLoading) return <Spinner />;
+
   return (
     <Form>
       <FormRow label="Minimum nights/booking">
         <Input
           type="number"
           id="min-nights"
-          defaultValue={minBookinglength}
+          defaultValue={minBookingLength}
           disabled={isUpdating}
-          onBlur={(e) => handleUpdate(e, "minBookinglength")}
+          onBlur={(e) => handleUpdate(e, "minBookingLength")}
         />
       </FormRow>
+
       <FormRow label="Maximum nights/booking">
         <Input
           type="number"
           id="max-nights"
-          defaultValue={maxBookingLengths}
+          defaultValue={maxBookingLength}
           disabled={isUpdating}
-          onBlur={(e) => handleUpdate(e, "maxBookingLengths")}
+          onBlur={(e) => handleUpdate(e, "maxBookingLength")}
         />
       </FormRow>
+
       <FormRow label="Maximum guests/booking">
         <Input
           type="number"
@@ -52,6 +57,7 @@ function UpdateSettingsForm() {
           onBlur={(e) => handleUpdate(e, "maxGuestsPerBooking")}
         />
       </FormRow>
+
       <FormRow label="Breakfast price">
         <Input
           type="number"

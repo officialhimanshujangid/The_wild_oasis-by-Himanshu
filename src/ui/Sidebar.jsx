@@ -16,13 +16,11 @@ const StyledSidebar = styled.aside`
 
 function Sidebar() {
   return (
-    <>
-      <StyledSidebar>
-        <Logo />
-        <MainNav />
-        <Uploader />
-      </StyledSidebar>
-    </>
+    <StyledSidebar>
+      <Logo />
+      <MainNav />
+      <Uploader />
+    </StyledSidebar>
   );
 }
 

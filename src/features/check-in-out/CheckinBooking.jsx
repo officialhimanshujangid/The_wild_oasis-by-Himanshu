@@ -1,20 +1,20 @@
-/* eslint-disable no-unused-vars */
-
-import { useEffect, useState } from "react";
 import styled from "styled-components";
 import BookingDataBox from "../../features/bookings/BookingDataBox";
-import Checkbox from "../../ui/Checkbox";
+
 import Row from "../../ui/Row";
 import Heading from "../../ui/Heading";
 import ButtonGroup from "../../ui/ButtonGroup";
 import Button from "../../ui/Button";
 import ButtonText from "../../ui/ButtonText";
-import { useCheckin } from "./useCheckin";
+import Spinner from "../../ui/Spinner";
+
 import { useMoveBack } from "../../hooks/useMoveBack";
 import { useBooking } from "../bookings/useBooking";
-import { useSettings } from "../settings/useSettings";
-import Spinner from "../../ui/Spinner";
+import { useEffect, useState } from "react";
+import Checkbox from "../../ui/Checkbox";
 import { formatCurrency } from "../../utils/helpers";
+import { useCheckin } from "./useCheckin";
+import { useSettings } from "../settings/useSettings";
 
 const Box = styled.div`
   /* Box */
@@ -26,18 +26,17 @@ const Box = styled.div`
 
 function CheckinBooking() {
   const [confirmPaid, setConfirmPaid] = useState(false);
-  const [addbreakfast, setAddBreakfat] = useState(false);
+  const [addBreakfast, setAddBreakfast] = useState(false);
   const { booking, isLoading } = useBooking();
   const { settings, isLoading: isLoadingSettings } = useSettings();
+
+  useEffect(() => setConfirmPaid(booking?.isPaid ?? false), [booking]);
+
   const moveBack = useMoveBack();
-  useEffect(
-    function () {
-      setConfirmPaid(booking?.isPaid ?? false);
-    },
-    [booking]
-  );
   const { checkin, isCheckingIn } = useCheckin();
+
   if (isLoading || isLoadingSettings) return <Spinner />;
+
   const {
     id: bookingId,
     guests,
@@ -52,12 +51,13 @@ function CheckinBooking() {
 
   function handleCheckin() {
     if (!confirmPaid) return;
-    if (addbreakfast) {
+
+    if (addBreakfast) {
       checkin({
         bookingId,
         breakfast: {
           hasBreakfast: true,
-          extraPrice: optionalBreakfastPrice,
+          extrasPrice: optionalBreakfastPrice,
           totalPrice: totalPrice + optionalBreakfastPrice,
         },
       });
@@ -65,6 +65,7 @@ function CheckinBooking() {
       checkin({ bookingId, breakfast: {} });
     }
   }
+
   return (
     <>
       <Row type="horizontal">
@@ -73,20 +74,22 @@ function CheckinBooking() {
       </Row>
 
       <BookingDataBox booking={booking} />
+
       {!hasBreakfast && (
         <Box>
           <Checkbox
-            checked={addbreakfast}
+            checked={addBreakfast}
             onChange={() => {
-              setAddBreakfat((add) => !add);
+              setAddBreakfast((add) => !add);
               setConfirmPaid(false);
             }}
             id="breakfast"
           >
-            Want to add breakfast for {formatCurrency(optionalBreakfastPrice)}
+            Want to add breakfast for {formatCurrency(optionalBreakfastPrice)}?
           </Checkbox>
         </Box>
       )}
+
       <Box>
         <Checkbox
           checked={confirmPaid}
@@ -94,14 +97,19 @@ function CheckinBooking() {
           disabled={confirmPaid || isCheckingIn}
           id="confirm"
         >
-          I confirm that {guests.fullName} has Paid the total amount of{" "}
-          {!addbreakfast
+          I confirm that {guests.fullName} has paid the total amount of{" "}
+          {!addBreakfast
             ? formatCurrency(totalPrice)
-            : formatCurrency(totalPrice + optionalBreakfastPrice)}
+            : `${formatCurrency(
+                totalPrice + optionalBreakfastPrice
+              )} (${formatCurrency(totalPrice)} + ${formatCurrency(
+                optionalBreakfastPrice
+              )})`}
         </Checkbox>
       </Box>
+
       <ButtonGroup>
-        <Button disabled={!confirmPaid || isCheckingIn} onClick={handleCheckin}>
+        <Button onClick={handleCheckin} disabled={!confirmPaid || isCheckingIn}>
           Check in booking #{bookingId}
         </Button>
         <Button variation="secondary" onClick={moveBack}>

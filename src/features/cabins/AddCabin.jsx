@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import Button from "../../ui/Button";
 import CreateCabinForm from "./CreateCabinForm";
 import Modal from "../../ui/Modal";

@@ -1,5 +1,3 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable react/prop-types */
 import styled from "styled-components";
 import { format, isToday } from "date-fns";
 import {
@@ -19,6 +17,7 @@ const StyledBookingDataBox = styled.section`
   background-color: var(--color-grey-0);
   border: 1px solid var(--color-grey-100);
   border-radius: var(--border-radius-md);
+
   overflow: hidden;
 `;
 
@@ -111,9 +110,8 @@ function BookingDataBox({ booking }) {
     numNights,
     numGuests,
     cabinPrice,
-    extraPrice,
+    extrasPrice,
     totalPrice,
-    status,
     hasBreakfast,
     observations,
     isPaid,
@@ -166,15 +164,12 @@ function BookingDataBox({ booking }) {
         </DataItem>
 
         <Price isPaid={isPaid}>
-          <DataItem
-            icon={<HiOutlineCurrencyDollar />}
-            label={status === "unconfirmed" ? `Booking Price` : `Total price`}
-          >
+          <DataItem icon={<HiOutlineCurrencyDollar />} label={`Total price`}>
             {formatCurrency(totalPrice)}
 
             {hasBreakfast &&
               ` (${formatCurrency(cabinPrice)} cabin + ${formatCurrency(
-                extraPrice
+                extrasPrice
               )} breakfast)`}
           </DataItem>
 
