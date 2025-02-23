@@ -57,8 +57,8 @@ function LoginForm() {
       </FormRowVertical>
       <FormRowVertical>
         <center>
-          For Testing Please Enter <br /> ID : tixabil809@cubene.com <br />{" "}
-          PASS: 12345678
+          For Testing Please Enter <br /> ID : himanshujangid@mailinator.com <br />{" "}
+          PASS: 123456
         </center>
       </FormRowVertical>
     </Form>
